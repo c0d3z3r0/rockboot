@@ -103,7 +103,7 @@ cd ..
 We need to build a kernel with minimal support for your board. For Radxa Rock Pro you can just use the `kexec-linux.config`. Feel free to modify it to your needs with `make menuconfig` if you have another board.
 
 ~~~bash
-git clone -b workbench/next https://github.com/c0d3z3r0/linux-rockchip.git
+git clone --depth 1 -b workbench/next https://github.com/c0d3z3r0/linux-rockchip.git
 cd linux-rockchip/
 make distclean
 cp ../kexec-linux.config .config
