@@ -100,18 +100,17 @@ cd ..
 
 ## Build the kexec kernel
 
-We need to build a kernel with minimal support for your board. For Radxa Rock Pro you can just use the `kexec-linux.config`. Feel free to modify it to your needs with `make menuconfig` if you have another board.
+We need to build a kernel with minimal support for your board. For Radxa Rock Pro you can just use the `kexec-kernel.conf`. Feel free to modify it to your needs with `make menuconfig` if you have another board.
 
 ~~~bash
 git clone --depth 1 -b workbench/next https://github.com/c0d3z3r0/linux-rockchip.git
 cd linux-rockchip/
 make distclean
-cp ../kexec-linux.config .config
+cp ../kexec-kernel.conf .config
 
 make silentoldconfig
 #make menuconfig  # only if needed
-make -j5 zImage
-make -j5 rk3188-radxarock.dtb
+make -j5 zImage rk3188-radxarock.dtb
 cat arch/arm/boot/{zImage,dts/rk3188-radxarock.dtb} >../radxa-kernel.img
 
 cd ..
@@ -130,7 +129,6 @@ git clone https://github.com/c0d3z3r0/u-boot-rockchip.git
 cd u-boot-rockchip/
 
 make rk30xx
-./pack-sd.sh
 cp u-boot-sd.img ../
 
 cd ..
@@ -178,7 +176,7 @@ EOF
 Adapt the paths for the `.img` files.
 
 ~~~bash
-sudo dd if=u-boot-sd.img of=${DEV} conv=sync seek=64 
+sudo dd if=u-boot-sd.img of=${DEV} conv=sync seek=64
 sudo dd if=kexec-parameter.img of=${DEV} conv=sync seek=$((0x2000))
 sudo dd if=boot.img of=${DEV} conv=sync seek=$((0x2000+0x2000))
 
