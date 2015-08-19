@@ -1,0 +1,7 @@
+/kexec-tools*
+/busybox*
+/rkutils*
+/u-boot-rockchip*
+/rockchip-mkbootimg*
+/linux*
+/initramfs*
