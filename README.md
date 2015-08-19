@@ -130,6 +130,7 @@ cd u-boot-rockchip/
 
 make rk30xx
 ./pack-sd.sh
+cp u-boot-sd.img ../
 
 cd ..
 ~~~
@@ -140,7 +141,7 @@ This file contains the cmdline for the u-boot bootloader. *Do not* change it. Yo
 can specify the cmdline for *your* kernel in `config.txt` later.
 
 ~~~bash
-./rkutils/rkcrc -p parameter.txt build/parameter.img
+./rkutils/rkcrc -p kexec-parameter.txt kexec-parameter.img
 ~~~
 
 
@@ -177,7 +178,7 @@ Adapt the paths for the `.img` files.
 
 ~~~bash
 sudo dd if=u-boot-sd.img of=${DEV} conv=sync seek=64 
-sudo dd if=parameter.img of=${DEV} conv=sync seek=$((0x2000))
+sudo dd if=kexec-parameter.img of=${DEV} conv=sync seek=$((0x2000))
 sudo dd if=boot.img of=${DEV} conv=sync seek=$((0x2000+0x2000))
 
 sudo mkfs.msdos ${DEV}1
