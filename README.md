@@ -182,3 +182,14 @@ kernel=zImage
 dtb=rk3188-radxarock.dtb
 cmdline="console=tty0 console=ttyS2,115200 root=/dev/mmcblk0p2 rootfstype=ext4 rw clocksource=jiffies"
 ~~~
+
+# License
+
+Copyright (C) 2015 Michael Niewöhner
+
+This is open source software, licensed under the MIT License. See the file LICENSE for details.
+
+This license does not apply to the foreign software included in binaries of or used in this project
+but does apply to rockboot itself containing the init script and the
+surrounding work. For licenses of the software included in rockboot consult
+the LICENSES directory.
