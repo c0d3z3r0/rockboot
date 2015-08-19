@@ -8,7 +8,8 @@ work with any rk3188 based board as long as you have a working kernel config (se
 
 # How does it work?
 
-RockBoot exists of X parts:
+RockBoot exists of three parts:
+
 - u-boot bootloader for rk3188 
 - a mainline linux kernel with kexec support
 - an initramfs image with busybox and kexec-tools
