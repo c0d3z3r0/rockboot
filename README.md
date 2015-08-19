@@ -14,7 +14,7 @@ RockBoot exists of X parts:
 - an initramfs image with busybox and kexec-tools
 
 RK3188 starts u-boot from your sd card which just starts the kexec kernel that boots into the initramfs.
-The init script reads your kernel, devicetree blob (dtb)  and config.txt from the first (FAT32) partition
+The init script reads your kernel, devicetree blob (dtb) and config.txt from the first (FAT32) partition
 of your sd card and calls kexec to load them into RAM. Then it executes kexec again to directly boot into
 the new kernel. That's it!
 
@@ -50,7 +50,7 @@ git clone https://github.com/c0d3z3r0/rockchip-mkbootimg.git
 cd rockchip-mkbootimg; make; cd ..
 
 git clone https://github.com/naobsd/rkutils.git
-cd rkutils; gcc rkcrc.c -o rkcrc; cd..
+cd rkutils; gcc rkcrc.c -o rkcrc; cd ..
 ~~~
 
 ### Busybox
@@ -99,14 +99,27 @@ cd ..
 
 ## Build the kexec kernel
 
+We need to build a kernel with minimal support for your board. For Radxa Rock Pro you can just use the `kexec-linux.config`. Feel free to modify it to your needs with `make menuconfig` if you have another board.
 
-...
+~~~bash
+git clone -b workbench/next https://github.com/c0d3z3r0/linux-rockchip.git
+cd linux-rockchip/
+make distclean
+cp ../kexec-linux.config .config
 
+make silentoldconfig
+#make menuconfig  # only if needed
+make -j5 zImage
+make -j5 rk3188-radxarock.dtb
+cat arch/arm/boot/{zImage,dts/rk3188-radxarock.dtb} >../radxa-kernel.img
+
+cd ..
+~~~
 
 ## Build the boot image
 
 ~~~bash
-./rockchip-mkbootimg/mkbootimg --kernel rk-kernel.img --ramdisk initramfs.cpio -o boot.img
+./rockchip-mkbootimg/mkbootimg --kernel radxa-kernel.img --ramdisk initramfs.cpio -o boot.img
 ~~~
 
 ## Build u-boot for rk3188
@@ -174,6 +187,8 @@ sudo mkfs.msdos ${DEV}1
 
 The boot partition contains your kernel, the devicetree blob built with the kernel and a config file `config.txt`.
 In the config file you need to specify which kernel you want to boot with which dtb and the cmdline.
+
+So just copy your kernel and dtb (*not* kexec-kernel created above) to `/dev/sdX1` and create a `config.txt`.
 
 Example (the default used by rock-update):
 
