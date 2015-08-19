@@ -93,7 +93,7 @@ cp ../kexec-tools-2.0.10/build/sbin/* sbin/
 cp ../busybox-1.23.2/busybox bin/
 cp ../init.sh init
 chmod +x init
-find . | cpio -H newc -o > ../initramfs.cpio
+find . | cpio -H newc -o | gzip -9 | > ../initramfs.img
 
 cd ..
 ~~~
@@ -119,7 +119,7 @@ cd ..
 ## Build the boot image
 
 ~~~bash
-./rockchip-mkbootimg/mkbootimg --kernel radxa-kernel.img --ramdisk initramfs.cpio -o boot.img
+./rockchip-mkbootimg/mkbootimg --kernel radxa-kernel.img --ramdisk initramfs.img -o boot.img
 ~~~
 
 ## Build u-boot for rk3188
