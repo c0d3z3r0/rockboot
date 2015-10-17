@@ -1,5 +1,12 @@
 # RockBoot
 
+---
+
+***Do not use this anymore.***
+[barebox](http://www.barebox.org/) has good support for Radxa Rock.
+
+---
+
 RockBoot is a kexec based bootloader for rk3188 boards intended to provide a simple way for replacing
 kernels without having to flash them to nand or write them to sd cards by hand. It is used by
 [rock-update](https://github.com/c0d3z3r0/rock-update) and has been tested for Radxa Rock Pro but should
