@@ -204,7 +204,7 @@ Copyright (C) 2015 Michael Niewöhner
 
 This is open source software, licensed under the MIT License. See the file LICENSE for details.
 
-This license does not apply to the foreign software included in binaries of or used in this project
+This license does not apply to the foreign software included in this project as binaries or source
 but does apply to rockboot itself containing the init script and the
 surrounding work. For licenses of the software included in rockboot consult
 the LICENSES directory.
